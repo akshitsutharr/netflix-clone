@@ -6,7 +6,8 @@
 	"scripts": {
 		"dev": "cross-env NODE_ENV=development nodemon backend/server.js",
 		"start": "cross-env NODE_ENV=production node backend/server.js",
-		"build": "npm install && npm install --prefix frontend && npm run build --prefix frontend",
+		"build": "node build.js",
+		"vercel-build": "bash vercel-build.sh",
 		"dev:frontend": "cd frontend && npm run dev",
 		"dev:backend": "cross-env NODE_ENV=development nodemon backend/server.js"
 	},
