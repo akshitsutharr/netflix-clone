@@ -7,14 +7,16 @@ import axios from "axios";
 import { Toaster } from "react-hot-toast";
 
 // Configure axios defaults
-axios.defaults.baseURL = import.meta.env.PROD ? "" : "http://localhost:5000";
+axios.defaults.baseURL = import.meta.env.PROD ? window.location.origin : "http://localhost:5000";
 axios.defaults.withCredentials = true;
 axios.defaults.timeout = 15000; // 15 seconds timeout
 
 // Add request interceptor for debugging
 axios.interceptors.request.use(
 	(config) => {
-		console.log(`Request to ${config.url}`, config);
+		if (import.meta.env.DEV) {
+			console.log(`Request to ${config.url}`, config);
+		}
 		return config;
 	},
 	(error) => {
@@ -26,7 +28,9 @@ axios.interceptors.request.use(
 // Add response interceptor for debugging
 axios.interceptors.response.use(
 	(response) => {
-		console.log(`Response from ${response.config.url}:`, response.data);
+		if (import.meta.env.DEV) {
+			console.log(`Response from ${response.config.url}:`, response.data);
+		}
 		return response;
 	},
 	(error) => {
